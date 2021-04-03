@@ -524,6 +524,13 @@ config ACPI_PPTT
 	bool
 endif
 
+if ARM
+source "drivers/acpi/arm64/Kconfig"
+
+config ACPI_PPTT
+	bool
+endif
+
 source "drivers/acpi/pmic/Kconfig"
 
 endif	# ACPI

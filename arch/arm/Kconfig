@@ -2,7 +2,16 @@
 config ARM
 	bool
 	default y
+	select ACPI_CCA_REQUIRED if ACPI
+	select ACPI_GENERIC_GSI if ACPI
+	select ACPI_GTDT if ACPI
+	select ACPI_IORT if ACPI
+	select ACPI_REDUCED_HARDWARE_ONLY if ACPI
+	select ACPI_MCFG if (ACPI && PCI)
+	select ACPI_SPCR_TABLE if ACPI
+	select ACPI_PPTT if ACPI
 	select ARCH_32BIT_OFF_T
+	select ARCH_HAS_ACPI_TABLE_UPGRADE if ACPI
 	select ARCH_HAS_BINFMT_FLAT
 	select ARCH_HAS_DEBUG_VIRTUAL if MMU
 	select ARCH_HAS_DMA_WRITE_COMBINE if !ARM_DMA_MEM_BUFFERABLE
@@ -65,6 +74,7 @@ config ARM
 	select GENERIC_STRNLEN_USER
 	select HANDLE_DOMAIN_IRQ
 	select HARDIRQS_SW_RESEND
+	select HAVE_ACPI_APEI if (ACPI && EFI)
 	select HAVE_ARCH_AUDITSYSCALL if AEABI && !OABI_COMPAT
 	select HAVE_ARCH_BITREVERSE if (CPU_32v7M || CPU_32v7) && !CPU_32v6
 	select HAVE_ARCH_JUMP_LABEL if !XIP_KERNEL && !CPU_ENDIAN_BE32 && MMU
@@ -120,6 +130,7 @@ config ARM
 	select OF_EARLY_FLATTREE if OF
 	select OLD_SIGACTION
 	select OLD_SIGSUSPEND3
+	select PCI_ECAM if (ACPI && PCI)
 	select PCI_SYSCALL if PCI
 	select PERF_USE_VMALLOC
 	select RTC_LIB
@@ -1874,6 +1885,7 @@ config EFI
 	select EFI_STUB
 	select EFI_GENERIC_STUB
 	select EFI_RUNTIME_WRAPPERS
+	select ARCH_SUPPORTS_ACPI
 	help
 	  This option provides support for runtime services provided
 	  by UEFI firmware (such as non-volatile variables, realtime
@@ -2010,3 +2022,14 @@ source "arch/arm/crypto/Kconfig"
 endif
 
 source "arch/arm/Kconfig.assembler"
+
+config ARM_ACPI_PARKING_PROTOCOL
+	bool "Enable support for the ARM ACPI parking protocol"
+	depends on ACPI
+	help
+	  Enable support for the ARM ACPI parking protocol. If disabled
+	  the kernel will not allow booting through the ARM ACPI parking
+	  protocol even if the corresponding data is present in the ACPI
+	  MADT table.
+
+source "drivers/acpi/Kconfig"
