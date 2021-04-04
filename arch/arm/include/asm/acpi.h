@@ -19,6 +19,9 @@
 #include <asm/ptrace.h>
 #include <asm/smp_plat.h>
 #include <asm/tlbflush.h>
+#include <asm/arch_timer.h>
+#include <asm/fixmap.h>
+#include <asm/early_ioremap.h>
 
 /* Macros for consistency checks of the GICC subtable of MADT */
 
