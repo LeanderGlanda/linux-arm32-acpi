@@ -4,7 +4,7 @@ There are a few devices out there which have a UEFI firmware and their CPU has a
 * Microsoft Surface RT 2
 * Lenovo Yoga Tab 11
 
-This repository is currently being setup, in the future you should see TODOs somewhere.
+You can find a project in the project tab where current TODO's, what has been finished and some notes for later are listed. For bigger issues Issues will be created in the Issues tab.
 
 ## GDB Debugging in VS Code with qemu
 Instructions on how to setup a virtual machine with qemu, compile a kernel for it and setup GDB Debugging in Visual Studio Code can be found in the Open Surface RT GitBook:
