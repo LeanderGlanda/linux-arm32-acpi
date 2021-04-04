@@ -1663,7 +1663,7 @@ static int __init gic_v2_acpi_init(union acpi_subtable_headers *header,
 	/*
 	 * Initialize GIC instance zero (no multi-GIC support).
 	 */
-	domain_handle = irq_domain_alloc_fwnode(&dist->base_address);
+	domain_handle = irq_domain_alloc_fwnode((phys_addr_t*)&dist->base_address);
 	if (!domain_handle) {
 		pr_err("Unable to allocate domain handle\n");
 		gic_teardown(gic);
